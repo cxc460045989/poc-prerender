@@ -24,6 +24,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta property="og:title" content="my poc page"></meta>
+        <meta property="og:type" content="website"></meta>
+        <meta
+          property="og:url"
+          content="https://poc-prerender-beta.vercel.app/"
+        ></meta>
+        <meta
+          property="og:description"
+          content="Check out this poc content!"
+        ></meta>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
