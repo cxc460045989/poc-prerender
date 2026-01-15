@@ -1,63 +1,102 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 
-export default function Home() {
+// 抽离API请求逻辑为独立函数（复用，避免重复代码）
+async function fetchMeetingData() {
+  const res = await fetch("https://info.cld.hkjc.com/graphql/base/", {
+    headers: {
+      accept: "*/*",
+      "accept-language": "en-us,en;q=0.9",
+      "content-type": "application/json",
+    },
+    referrer: "https://racing.hkjc.com/",
+    body: '{"variables":{"localSim":"LOCAL","status":["DECLARED","DEFINED","STARTED","CLOSED","ABANDON_PARTIAL","ABANDON"]},"query":"\\nquery wt_WeatherMeeting( $localSim: LocalSim, $status: [MeetingStatus!])  {\\n  commonMeetings(localSim: $localSim, status: $status) {\\n    date\\n    venueCode\\n    meetingTrack_en\\n    meetingTrack_ch\\n    status\\n    totalNumberOfRace\\n    currentNumberOfRace\\n     meetingType\\n     penetrometerReadings {\\n      reading\\n      readingTime\\n      sequenceNumber\\n    }\\n    hammerReadings {\\n      sequenceNumber\\n      readingTime\\n      reading\\n    }\\n    course {\\n      code\\n      chinese\\n      english\\n      mandarin\\n    }\\n    races {\\n      go_en\\n      go_ch\\n      status\\n      no\\n      raceTrack {\\n        code\\n      }\\n    }\\n  }\\n}\\n"}',
+    method: "POST",
+    // Next.js自动缓存fetch请求，加此配置避免重复请求（关键！）
+    cache: "force-cache", 
+  });
+  
+  if (!res.ok) throw new Error("API请求失败");
+  return res.json();
+}
+
+// 🌟 核心：动态生成head标签的meta/title信息（新增图片配置）
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const data = await fetchMeetingData();
+    // 获取date，设置默认值避免空值
+    const meetingDate = data?.data?.commonMeetings?.[0]?.date || "null date";
+    
+    // 1. 替换为你的图片绝对URL（prerender.io必须用完整路径，不能用相对路径）
+    const thumbnailImageUrl = "https://consvc.hkjc.com/-/media/Sites/JCRW/Simulca…ev=e9139a20b5d04d48a567346b2c1d6dde&sc_lang=zh-HK";
+    // 可选：根据日期动态生成图片URL（比如不同日期用不同图片）
+    // const thumbnailImageUrl = `https://你的图片域名/meeting-${meetingDate}.jpg`;
+    
+    // 返回Metadata配置（对应head里的title和meta）
+    return {
+      // 页面标题：拼接日期
+      title: `meeting date - ${meetingDate}`,
+      // meta标签：描述、关键词等（可自定义）
+      description: `meeting date：${meetingDate}`,
+      openGraph: {
+        title: `meeting date - ${meetingDate}`,
+        description: `meeting date：${meetingDate}`,
+        // 🌟 新增：OGP图片配置（prerender.io优先识别）
+        images: [
+          {
+            url: thumbnailImageUrl, // 图片绝对URL（必填）
+            width: 1200, // OGP最佳尺寸（1200x630，宽高比1.91:1）
+            height: 630,
+            alt: `Meeting Date - ${meetingDate}`, // 图片描述（提升可访问性）
+            type: "image/jpeg", // 图片格式（根据实际图片修改，如image/png）
+          },
+        ],
+      },
+      // 🌟 新增：Twitter卡片配置（兼容prerender.io和社交平台）
+      twitter: {
+        card: "summary_large_image", // 大图卡片样式
+        title: `meeting date - ${meetingDate}`,
+        description: `meeting date：${meetingDate}`,
+        images: [thumbnailImageUrl], // Twitter缩略图
+      },
+      // 自定义meta标签（比如keywords）
+      other: {
+        "keywords": `meeting date,${meetingDate}`,
+        // 兼容旧版爬虫的图片标签（兜底）
+        "og:image": thumbnailImageUrl,
+      }
+    };
+  } catch (error) {
+    // 异常时返回默认meta信息（包含默认图片）
+    const defaultImageUrl = "https://consvc.hkjc.com/-/media/Sites/JCRW/Simulca…ev=e9139a20b5d04d48a567346b2c1d6dde&sc_lang=zh-HK"; // 替换为默认图片URL
+    return {
+      title: "meeting-error",
+      description: "meeting-error",
+      openGraph: {
+        title: "meeting-error",
+        description: "meeting-error",
+        images: [{ url: defaultImageUrl, width: 1200, height: 630, alt: "Meeting Default" }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "meeting-error",
+        description: "meeting-error",
+        images: [defaultImageUrl],
+      },
+    };
+  }
+}
+
+export default async function Home() {
+  // 复用请求函数获取数据（Next.js会缓存，不会重复请求API）
+  const userData = await fetchMeetingData();
+  const meetingDate = userData?.data?.commonMeetings?.[0]?.date || "未知日期";
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+          <div>meeting date: {meetingDate}</div>
         </div>
       </main>
     </div>
