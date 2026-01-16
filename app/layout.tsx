@@ -29,6 +29,7 @@ export default function RootLayout({
         <meta property="og:image:height" content="630">
         <meta property="og:image:alt" content="Meeting Date - 2026-01-18">
         <meta property="og:image:type" content="image/jpeg">
+      </head>
       <body>{children}</body>
     </html>
   );
