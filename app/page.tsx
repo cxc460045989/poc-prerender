@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
    
     
     // 1. 替换为你的图片绝对URL（prerender.io必须用完整路径，不能用相对路径）
-    const thumbnailImageUrl = "https://consvc.hkjc.com/-/media/Sites/JCRW/Simulcast/logo_hkjc.png?rev=500bddbe07984a9da54c2a5fdfe10f63&sc_lang=en-US";
+    const thumbnailImageUrl = "/vercel.svg";
     // 可选：根据日期动态生成图片URL（比如不同日期用不同图片）
     // const thumbnailImageUrl = `https://你的图片域名/meeting-${meetingDate}.jpg`;
     
@@ -52,7 +52,7 @@ export async function generateMetadata(): Promise<Metadata> {
             width: 1200, // OGP最佳尺寸（1200x630，宽高比1.91:1）
             height: 630,
             alt: `Meeting Date - ${meetingDate+"---"+venueCode}`, // 图片描述（提升可访问性）
-            type: "image/jpeg", // 图片格式（根据实际图片修改，如image/png）
+            type: "image/svg", // 图片格式（根据实际图片修改，如image/png）
           },
         ],
       },
@@ -95,13 +95,14 @@ export default async function Home() {
   // 复用请求函数获取数据（Next.js会缓存，不会重复请求API）
   const userData = await fetchMeetingData();
   const meetingDate = userData?.data?.commonMeetings?.[0]?.date || "未知日期";
-  
+  const venuecode = data?.data?.commonMeetings?.[0]?.venueCode || "no code";
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
           <div>meeting date: {meetingDate}</div>
+          <div>venuecode: {venuecode}</div>
         </div>
       </main>
     </div>
