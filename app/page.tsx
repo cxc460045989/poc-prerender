@@ -1,7 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 
-抽离API请求逻辑为独立函数（复用，避免重复代码）
 async function fetchMeetingData() {
   const uri = "https://info.cld.hkjc.com/graphql/base/";
   const res = await fetch(uri, {
