@@ -20,9 +20,10 @@ export default function RootLayout({
       <head>
         <meta name="description" content="meeting date：2026-01-18 test"></meta>
         <meta name="keywords" content="meeting date,2026-01-18 test"></meta>
-        <meta name="og:image" content="https://consvc.hkjc.com/-/media/Sites/JCRW/Simulca…ev=e9139a20b5d04d48a567346b2c1d6dde&amp;sc_lang=zh-HK"></meta>
         <meta property="og:title" content="meeting date - 2026-01-18 test"></meta>
         <meta property="og:description" content="meeting date：2026-01-18 test"></meta>
+        <meta property="og:type" content="website"></meta>
+        <meta property="og:url" content="https://poc-prerender2.vercel.app/"></meta>
         <meta property="og:image" content="https://consvc.hkjc.com/-/media/Sites/JCRW/Simulca%E2%80%A6ev=e9139a20b5d04d48a567346b2c1d6dde&amp;sc_lang=zh-HK"></meta>
         <meta property="og:image:width" content="1200"></meta>
         <meta property="og:image:height" content="630"></meta>
