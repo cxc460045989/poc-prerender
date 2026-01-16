@@ -21,7 +21,24 @@ export default function RootLayout({
       <head>
         {/* 只保留非og相关的必要标签，比如favicon等，删除所有og:xxx的meta */}
       </head>
-      <body>{children}</body>
+      <body>
+        <article>
+        <h1>Best SEO Practices</h1>
+        <p>....</p>
+
+        <div>
+            <h2>Technological Solutions</h2>
+            <p>....</p>
+        </div>
+
+        <div>
+            <h3>1. User Prerendering</h3>
+            <p>
+                To allow your content delivery team to enhance the UX for your site, you must use a prerendering solution to ensure high-quality <h6>SEO</h6> for crawlers, while providing enjoyable content for your customer.
+            </p>
+        </div>
+    </article>
+        {children}</body>
     </html>
   );
 }
