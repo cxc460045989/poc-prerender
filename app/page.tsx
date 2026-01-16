@@ -3,15 +3,22 @@ import type { Metadata } from "next";
 
 // 抽离API请求逻辑为独立函数（复用，避免重复代码）
 async function fetchMeetingData() {
-  const res = await fetch("https://info.cld.hkjc.com/graphql/base/", {
-    headers: {
-      accept: "*/*",
-      "accept-language": "en-us,en;q=0.9",
-      "content-type": "application/json",
-    }
-    body: '{"variables":{"localSim":"LOCAL","status":["DECLARED","DEFINED","STARTED","CLOSED","ABANDON_PARTIAL","ABANDON"]},"query":"\\nquery wt_WeatherMeeting( $localSim: LocalSim, $status: [MeetingStatus!])  {\\n  commonMeetings(localSim: $localSim, status: $status) {\\n    date\\n    venueCode\\n    meetingTrack_en\\n    meetingTrack_ch\\n    status\\n    totalNumberOfRace\\n    currentNumberOfRace\\n     meetingType\\n     penetrometerReadings {\\n      reading\\n      readingTime\\n      sequenceNumber\\n    }\\n    hammerReadings {\\n      sequenceNumber\\n      readingTime\\n      reading\\n    }\\n    course {\\n      code\\n      chinese\\n      english\\n      mandarin\\n    }\\n    races {\\n      go_en\\n      go_ch\\n      status\\n      no\\n      raceTrack {\\n        code\\n      }\\n    }\\n  }\\n}\\n"}',
-    method: "POST",
-    cache: "force-cache", 
+  const uri = "https://info.cld.hkjc.com/graphql/base/";
+  const res = await fetch(uri, {
+      method: "POST",
+      mode: "cors",
+      credentials: "omit",
+      referrerPolicy: "strict-origin-when-cross-origin",
+      signal: signal,
+      headers: {
+        accept: "*/*",
+        "accept-language": "en-us,en;q=0.9",
+        "content-type": "application/json",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "cross-site",
+      },
+     body: '{"variables":{"localSim":"LOCAL","status":["DECLARED","DEFINED","STARTED","CLOSED","ABANDON_PARTIAL","ABANDON"]},"query":"\\nquery wt_WeatherMeeting( $localSim: LocalSim, $status: [MeetingStatus!])  {\\n  commonMeetings(localSim: $localSim, status: $status) {\\n    date\\n    venueCode\\n    meetingTrack_en\\n    meetingTrack_ch\\n    status\\n    totalNumberOfRace\\n    currentNumberOfRace\\n     meetingType\\n     penetrometerReadings {\\n      reading\\n      readingTime\\n      sequenceNumber\\n    }\\n    hammerReadings {\\n      sequenceNumber\\n      readingTime\\n      reading\\n    }\\n    course {\\n      code\\n      chinese\\n      english\\n      mandarin\\n    }\\n    races {\\n      go_en\\n      go_ch\\n      status\\n      no\\n      raceTrack {\\n        code\\n      }\\n    }\\n  }\\n}\\n"}',
   });
   
   if (!res.ok) throw new Error("API请求失败");
