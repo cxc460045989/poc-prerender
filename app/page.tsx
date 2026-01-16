@@ -94,8 +94,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   // 复用请求函数获取数据（Next.js会缓存，不会重复请求API）
   const userData = await fetchMeetingData();
-  const meetingDate = userData?.data?.commonMeetings?.[0]?.date || "未知日期";
-  const venueCode = data?.data?.commonMeetings?.[0]?.venueCode || "no code";
+  const meetingDate = userData?.data?.commonMeetings?.[0]?.date || "no date";
+  const venueCode = userData?.data?.commonMeetings?.[0]?.venueCode || "no code";
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
