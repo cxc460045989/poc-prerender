@@ -33,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
    
     
     // 1. 替换为你的图片绝对URL（prerender.io必须用完整路径，不能用相对路径）
-    const thumbnailImageUrl = "/vercel.svg";
+    const thumbnailImageUrl = "/next.svg";
     // 可选：根据日期动态生成图片URL（比如不同日期用不同图片）
     // const thumbnailImageUrl = `https://你的图片域名/meeting-${meetingDate}.jpg`;
     
@@ -73,7 +73,7 @@ export async function generateMetadata(): Promise<Metadata> {
     };
   } catch (error) {
     // 异常时返回默认meta信息（包含默认图片）
-    const defaultImageUrl = "/vercel.svg"; // 替换为默认图片URL
+    const defaultImageUrl = "/next.svg"; // 替换为默认图片URL
     return {
       title: "meeting-error",
       description: "meeting-error",
