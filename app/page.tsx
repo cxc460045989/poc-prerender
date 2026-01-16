@@ -27,9 +27,9 @@ import type { Metadata } from "next";
 // 🌟 核心：动态生成head标签的meta/title信息（新增图片配置）
 export async function generateMetadata(): Promise<Metadata> {
   try {
-    const data = await fetchMeetingData();
-    // 获取date，设置默认值避免空值
-    const meetingDate = data?.data?.commonMeetings?.[0]?.date || "null date";
+    // const data = await fetchMeetingData();
+    // const meetingDate = data?.data?.commonMeetings?.[0]?.date || "null date";
+    const meetingDate = "2026-01-18"
     
     // 1. 替换为你的图片绝对URL（prerender.io必须用完整路径，不能用相对路径）
     const thumbnailImageUrl = "https://consvc.hkjc.com/-/media/Sites/JCRW/Simulca…ev=e9139a20b5d04d48a567346b2c1d6dde&sc_lang=zh-HK";
