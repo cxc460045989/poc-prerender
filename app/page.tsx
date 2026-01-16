@@ -2,27 +2,27 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 // 抽离API请求逻辑为独立函数（复用，避免重复代码）
-async function fetchMeetingData() {
-  const uri = "https://info.cld.hkjc.com/graphql/base/";
-  const res = await fetch(uri, {
-      method: "POST",
-      mode: "cors",
-      credentials: "omit",
-      referrerPolicy: "strict-origin-when-cross-origin",
-      headers: {
-        accept: "*/*",
-        "accept-language": "en-us,en;q=0.9",
-        "content-type": "application/json",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "cross-site",
-      },
-     body: '{"variables":{"localSim":"LOCAL","status":["DECLARED","DEFINED","STARTED","CLOSED","ABANDON_PARTIAL","ABANDON"]},"query":"\\nquery wt_WeatherMeeting( $localSim: LocalSim, $status: [MeetingStatus!])  {\\n  commonMeetings(localSim: $localSim, status: $status) {\\n    date\\n    venueCode\\n    meetingTrack_en\\n    meetingTrack_ch\\n    status\\n    totalNumberOfRace\\n    currentNumberOfRace\\n     meetingType\\n     penetrometerReadings {\\n      reading\\n      readingTime\\n      sequenceNumber\\n    }\\n    hammerReadings {\\n      sequenceNumber\\n      readingTime\\n      reading\\n    }\\n    course {\\n      code\\n      chinese\\n      english\\n      mandarin\\n    }\\n    races {\\n      go_en\\n      go_ch\\n      status\\n      no\\n      raceTrack {\\n        code\\n      }\\n    }\\n  }\\n}\\n"}',
-  });
+// async function fetchMeetingData() {
+//   const uri = "https://info.cld.hkjc.com/graphql/base/";
+//   const res = await fetch(uri, {
+//       method: "POST",
+//       mode: "cors",
+//       credentials: "omit",
+//       referrerPolicy: "strict-origin-when-cross-origin",
+//       headers: {
+//         accept: "*/*",
+//         "accept-language": "en-us,en;q=0.9",
+//         "content-type": "application/json",
+//         "sec-fetch-dest": "empty",
+//         "sec-fetch-mode": "cors",
+//         "sec-fetch-site": "cross-site",
+//       },
+//      body: '{"variables":{"localSim":"LOCAL","status":["DECLARED","DEFINED","STARTED","CLOSED","ABANDON_PARTIAL","ABANDON"]},"query":"\\nquery wt_WeatherMeeting( $localSim: LocalSim, $status: [MeetingStatus!])  {\\n  commonMeetings(localSim: $localSim, status: $status) {\\n    date\\n    venueCode\\n    meetingTrack_en\\n    meetingTrack_ch\\n    status\\n    totalNumberOfRace\\n    currentNumberOfRace\\n     meetingType\\n     penetrometerReadings {\\n      reading\\n      readingTime\\n      sequenceNumber\\n    }\\n    hammerReadings {\\n      sequenceNumber\\n      readingTime\\n      reading\\n    }\\n    course {\\n      code\\n      chinese\\n      english\\n      mandarin\\n    }\\n    races {\\n      go_en\\n      go_ch\\n      status\\n      no\\n      raceTrack {\\n        code\\n      }\\n    }\\n  }\\n}\\n"}',
+//   });
   
-  if (!res.ok) throw new Error("API请求失败");
-  return res.json();
-}
+//   if (!res.ok) throw new Error("API请求失败");
+//   return res.json();
+// }
 
 // 🌟 核心：动态生成head标签的meta/title信息（新增图片配置）
 export async function generateMetadata(): Promise<Metadata> {
@@ -93,8 +93,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Home() {
   // 复用请求函数获取数据（Next.js会缓存，不会重复请求API）
-  const userData = await fetchMeetingData();
-  const meetingDate = userData?.data?.commonMeetings?.[0]?.date || "未知日期";
+  // const userData = await fetchMeetingData();
+  // const meetingDate = userData?.data?.commonMeetings?.[0]?.date || "未知日期";
+   const meetingDate = "2026-01-18"
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
