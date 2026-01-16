@@ -8,11 +8,9 @@ async function fetchMeetingData() {
       accept: "*/*",
       "accept-language": "en-us,en;q=0.9",
       "content-type": "application/json",
-    },
-    referrer: "https://racing.hkjc.com/",
+    }
     body: '{"variables":{"localSim":"LOCAL","status":["DECLARED","DEFINED","STARTED","CLOSED","ABANDON_PARTIAL","ABANDON"]},"query":"\\nquery wt_WeatherMeeting( $localSim: LocalSim, $status: [MeetingStatus!])  {\\n  commonMeetings(localSim: $localSim, status: $status) {\\n    date\\n    venueCode\\n    meetingTrack_en\\n    meetingTrack_ch\\n    status\\n    totalNumberOfRace\\n    currentNumberOfRace\\n     meetingType\\n     penetrometerReadings {\\n      reading\\n      readingTime\\n      sequenceNumber\\n    }\\n    hammerReadings {\\n      sequenceNumber\\n      readingTime\\n      reading\\n    }\\n    course {\\n      code\\n      chinese\\n      english\\n      mandarin\\n    }\\n    races {\\n      go_en\\n      go_ch\\n      status\\n      no\\n      raceTrack {\\n        code\\n      }\\n    }\\n  }\\n}\\n"}',
     method: "POST",
-    // Next.js自动缓存fetch请求，加此配置避免重复请求（关键！）
     cache: "force-cache", 
   });
   
