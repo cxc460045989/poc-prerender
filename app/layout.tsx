@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 
 // 【可选】在layout中定义全局默认的Metadata（推荐，替代手动写的静态标签）
-export const generateMetadata: Metadata = {
+export const metadata: Metadata = {
   // 全局默认的基础配置（page级会覆盖这些）
   openGraph: {
     type: 'website', // 全局默认的og:type
