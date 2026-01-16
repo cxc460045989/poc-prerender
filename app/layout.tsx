@@ -17,7 +17,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* 移除手动写的<head>里的og相关meta标签！只保留空的<head>或必要的非meta内容 */}
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
