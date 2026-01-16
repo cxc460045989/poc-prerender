@@ -18,16 +18,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>meeting date - 2026-01-18</title><meta name="description" content="meeting date：2026-01-18">
-        <meta name="keywords" content="meeting date,2026-01-18">
-        <meta name="og:image" content="https://consvc.hkjc.com/-/media/Sites/JCRW/Simulca…ev=e9139a20b5d04d48a567346b2c1d6dde&amp;sc_lang=zh-HK">
-        <meta property="og:title" content="meeting date - 2026-01-18"><meta property="og:description" content="meeting date：2026-01-18">
-        <meta property="og:image" content="https://consvc.hkjc.com/-/media/Sites/JCRW/Simulca%E2%80%A6ev=e9139a20b5d04d48a567346b2c1d6dde&amp;sc_lang=zh-HK"><meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
-        <meta property="og:image:alt" content="Meeting Date - 2026-01-18">
-        <meta property="og:image:type" content="image/jpeg">
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <title>meeting date - 2026-01-18</title>
+        <meta name="description" content="meeting date：2026-01-18"></meta>
+        <meta name="keywords" content="meeting date,2026-01-18"></meta>
+        <meta name="og:image" content="https://consvc.hkjc.com/-/media/Sites/JCRW/Simulca…ev=e9139a20b5d04d48a567346b2c1d6dde&amp;sc_lang=zh-HK"></meta>
+        <meta property="og:title" content="meeting date - 2026-01-18"><meta property="og:description" content="meeting date：2026-01-18"></meta>
+        <meta property="og:image" content="https://consvc.hkjc.com/-/media/Sites/JCRW/Simulca%E2%80%A6ev=e9139a20b5d04d48a567346b2c1d6dde&amp;sc_lang=zh-HK"><meta property="og:image:width" content="1200"></meta>
+        <meta property="og:image:height" content="630"></meta>
+        <meta property="og:image:alt" content="Meeting Date - 2026-01-18"></meta>
+        <meta property="og:image:type" content="image/jpeg"></meta>
       </head>
       <body>{children}</body>
     </html>
