@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
    
     
     // 1. 替换为你的图片绝对URL（prerender.io必须用完整路径，不能用相对路径）
-    const thumbnailImageUrl = "https://consvc.hkjc.com/-/media/Sites/JCRW/Simulca…ev=e9139a20b5d04d48a567346b2c1d6dde&sc_lang=zh-HK";
+    const thumbnailImageUrl = "https://consvc.hkjc.com/-/media/Sites/JCRW/Simulcast/logo_hkjc.png?rev=500bddbe07984a9da54c2a5fdfe10f63&sc_lang=en-US";
     // 可选：根据日期动态生成图片URL（比如不同日期用不同图片）
     // const thumbnailImageUrl = `https://你的图片域名/meeting-${meetingDate}.jpg`;
     
