@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function middleware(request) {
-console.log("User-Agent:", userAgent);
-console.log("Is bot?", isBot);
+
   const userAgent = request.headers.get("user-agent");
 
     const bots = [
