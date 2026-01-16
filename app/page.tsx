@@ -29,6 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const data = await fetchMeetingData();
     const meetingDate = data?.data?.commonMeetings?.[0]?.date || "no date";
     const venueCode = data?.data?.commonMeetings?.[0]?.venueCode || "no code";
+    const status = data?.data?.commonMeetings?.[0]?.status || "no status";
    
     
     // 1. 替换为你的图片绝对URL（prerender.io必须用完整路径，不能用相对路径）
@@ -39,19 +40,19 @@ export async function generateMetadata(): Promise<Metadata> {
     // 返回Metadata配置（对应head里的title和meta）
     return {
       // 页面标题：拼接日期
-      title: `meeting date - ${meetingDate+"---"+venueCode}`,
+      title: `meeting date - ${meetingDate+"---"+venueCode+"---"+status}`,
       // meta标签：描述、关键词等（可自定义）
-      description: `meeting date：${meetingDate+"---"+venueCode}`,
+      description: `meeting date：${meetingDate+"---"+venueCode+"---"+status}`,
       openGraph: {
-        title: `meeting date - ${meetingDate+"---"+venueCode}`,
-        description: `meeting date：${meetingDate+"---"+venueCode}`,
+        title: `meeting date - ${meetingDate+"---"+venueCode+"---"+status}`,
+        description: `meeting date：${meetingDate+"---"+venueCode+"---"+status}`,
         // 🌟 新增：OGP图片配置（prerender.io优先识别）
         images: [
           {
             url: thumbnailImageUrl, // 图片绝对URL（必填）
             width: 1200, // OGP最佳尺寸（1200x630，宽高比1.91:1）
             height: 630,
-            alt: `Meeting Date - ${meetingDate+"---"+venueCode}`, // 图片描述（提升可访问性）
+            alt: `Meeting Date - ${meetingDate+"---"+venueCode+"---"+status}`, // 图片描述（提升可访问性）
             type: "image/svg", // 图片格式（根据实际图片修改，如image/png）
           },
         ],
@@ -59,20 +60,20 @@ export async function generateMetadata(): Promise<Metadata> {
       // 🌟 新增：Twitter卡片配置（兼容prerender.io和社交平台）
       twitter: {
         card: "summary_large_image", // 大图卡片样式
-        title: `meeting date - ${meetingDate+"---"+venueCode}`,
-        description: `meeting date：${meetingDate+"---"+venueCode}`,
+        title: `meeting date - ${meetingDate+"---"+venueCode+"---"+status}`,
+        description: `meeting date：${meetingDate+"---"+venueCode+"---"+status}`,
         images: [thumbnailImageUrl], // Twitter缩略图
       },
       // 自定义meta标签（比如keywords）
       other: {
-        "keywords": `meeting date,${meetingDate+"---"+venueCode}`,
+        "keywords": `meeting date,${meetingDate+"---"+venueCode+"---"+status}`,
         // 兼容旧版爬虫的图片标签（兜底）
         "og:image": thumbnailImageUrl,
       }
     };
   } catch (error) {
     // 异常时返回默认meta信息（包含默认图片）
-    const defaultImageUrl = "https://consvc.hkjc.com/-/media/Sites/JCRW/Simulca…ev=e9139a20b5d04d48a567346b2c1d6dde&sc_lang=zh-HK"; // 替换为默认图片URL
+    const defaultImageUrl = "/vercel.svg"; // 替换为默认图片URL
     return {
       title: "meeting-error",
       description: "meeting-error",
@@ -96,6 +97,7 @@ export default async function Home() {
   const userData = await fetchMeetingData();
   const meetingDate = userData?.data?.commonMeetings?.[0]?.date || "no date";
   const venueCode = userData?.data?.commonMeetings?.[0]?.venueCode || "no code";
+  const status = userData?.data?.commonMeetings?.[0]?.status || "no status";
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -103,6 +105,7 @@ export default async function Home() {
         <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
           <div>meeting date: {meetingDate}</div>
           <div>venuecode: {venueCode}</div>
+          <div>status: {status}</div>
         </div>
       </main>
     </div>
