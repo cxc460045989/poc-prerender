@@ -9,7 +9,6 @@ async function fetchMeetingData() {
       mode: "cors",
       credentials: "omit",
       referrerPolicy: "strict-origin-when-cross-origin",
-      signal: signal,
       headers: {
         accept: "*/*",
         "accept-language": "en-us,en;q=0.9",
