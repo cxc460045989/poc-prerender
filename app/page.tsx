@@ -46,6 +46,8 @@ export async function generateMetadata(): Promise<Metadata> {
       openGraph: {
         title: `meeting date - ${meetingDate+"---"+venueCode+"---"+status}`,
         description: `meeting date：${meetingDate+"---"+venueCode+"---"+status}`,
+        type: 'website',
+        url: 'https://prerender-poc-test.vercel.app/'
         // 🌟 新增：OGP图片配置（prerender.io优先识别）
         images: [
           {
@@ -101,6 +103,7 @@ export default async function Home() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      <h1 className="text-2xl font-bold mb-4">Meeting Info</h1>
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
           <div>meeting date: {meetingDate}</div>
