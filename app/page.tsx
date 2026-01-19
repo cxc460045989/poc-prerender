@@ -40,12 +40,12 @@ export async function generateMetadata(): Promise<Metadata> {
     // 返回Metadata配置（对应head里的title和meta）
     return {
       // 页面标题：拼接日期
-      title: `meeting date - ${meetingDate+"---"+venueCode+"---"+status}`,
+      title: `meeting date - ${meetingDate+"-"+venueCode+"-"+status}`,
       // meta标签：描述、关键词等（可自定义）
-      description: `meeting date：${meetingDate+"---"+venueCode+"---"+status}`,
+      description: `meeting date：${meetingDate+"-"+venueCode+"-"+status}`,
       openGraph: {
-        title: `meeting date - ${meetingDate+"---"+venueCode+"---"+status}`,
-        description: `meeting date：${meetingDate+"---"+venueCode+"---"+status}`,
+        title: `meeting date - ${meetingDate+"-"+venueCode+"-"+status}`,
+        description: `meeting date：${meetingDate+"-"+venueCode+"-"+status}`,
         type: 'website',
         url: 'https://prerender-poc-test.vercel.app/',
         // 🌟 新增：OGP图片配置（prerender.io优先识别）
@@ -54,7 +54,7 @@ export async function generateMetadata(): Promise<Metadata> {
             url: thumbnailImageUrl, // 图片绝对URL（必填）
             width: 1200, // OGP最佳尺寸（1200x630，宽高比1.91:1）
             height: 630,
-            alt: `Meeting Date - ${meetingDate+"---"+venueCode+"---"+status}`, // 图片描述（提升可访问性）
+            alt: `Meeting Date - ${meetingDate+"-"+venueCode+"-"+status}`, // 图片描述（提升可访问性）
             type: "image/svg", // 图片格式（根据实际图片修改，如image/png）
           },
         ],
@@ -62,13 +62,13 @@ export async function generateMetadata(): Promise<Metadata> {
       // 🌟 新增：Twitter卡片配置（兼容prerender.io和社交平台）
       twitter: {
         card: "summary_large_image", // 大图卡片样式
-        title: `meeting date - ${meetingDate+"---"+venueCode+"---"+status}`,
-        description: `meeting date：${meetingDate+"---"+venueCode+"---"+status}`,
+        title: `meeting date - ${meetingDate+"-"+venueCode+"-"+status}`,
+        description: `meeting date：${meetingDate+"-"+venueCode+"-"+status}`,
         images: [thumbnailImageUrl], // Twitter缩略图
       },
       // 自定义meta标签（比如keywords）
       other: {
-        "keywords": `meeting date,${meetingDate+"---"+venueCode+"---"+status}`,
+        "keywords": `meeting date,${meetingDate+"-"+venueCode+"-"+status}`,
         // 兼容旧版爬虫的图片标签（兜底）
         "og:image": thumbnailImageUrl,
       }
