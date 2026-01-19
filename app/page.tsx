@@ -47,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
         title: `meeting date - ${meetingDate+"---"+venueCode+"---"+status}`,
         description: `meeting date：${meetingDate+"---"+venueCode+"---"+status}`,
         type: 'website',
-        url: 'https://prerender-poc-test.vercel.app/'
+        url: 'https://prerender-poc-test.vercel.app/',
         // 🌟 新增：OGP图片配置（prerender.io优先识别）
         images: [
           {
